@@ -1,0 +1,19 @@
+{
+  "name": "rest_api_nodejs_2.0.1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bongomin/rest_Api_Nodejs_2.0.1.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bongomin/rest_Api_Nodejs_2.0.1/issues"
+  },
+  "homepage": "https://github.com/bongomin/rest_Api_Nodejs_2.0.1#readme"
+}
