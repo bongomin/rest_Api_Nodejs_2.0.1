@@ -1,9 +1,14 @@
 const express           = require('express');
+const bodyParser        = require('body-parser');
 
 // Loading the routes
 const apiRouter = require('./routes/api'); 
 
 const app = express();
+
+///body-parser middleware for handling post requests 
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 
 

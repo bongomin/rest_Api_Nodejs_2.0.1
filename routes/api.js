@@ -11,7 +11,14 @@ router.get('/devops' , (req,res) => {
 
 /// adding a developer into the database  
 router.post('/devops' , (req,res) => {
-   res.send({type : "POST"});
+   console.log(req.body);
+   res.send({
+      type : "POST",
+      name:req.body.name,
+	Location : req.body.Location,
+	specialisation  : req.body.specialisation
+   
+   });
 
 });
 
