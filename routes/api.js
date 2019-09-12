@@ -1,5 +1,6 @@
 const express = require('express');
-const router = express.Router();
+const router  = express.Router();
+const Devops  = require('../models/devops');
 
 
 ///getiing a list of developers from the database
@@ -11,14 +12,17 @@ router.get('/devops' , (req,res) => {
 
 /// adding a developer into the database  
 router.post('/devops' , (req,res) => {
-   console.log(req.body);
-   res.send({
-      type : "POST",
-      name:req.body.name,
-	Location : req.body.Location,
-	specialisation  : req.body.specialisation
+   // var devops = new Devops(req.body);
+   // devops.save();
+      
+//  better alternative
+    Devops.create(req.body)
+    .then(devop => {
+      res.send(devop);
+    })   //this //creates and saves automaticlly no need forsave 
+
    
-   });
+   
 
 });
 
