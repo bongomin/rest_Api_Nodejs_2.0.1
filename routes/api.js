@@ -32,8 +32,12 @@ router.put('/devops/:id' , (req,res,next) => {
 
 //// delete a developer from the database
 router.delete('/devops/:id' , (req,res,next) => {
-   res.send({type : "DELETE"});
-
+  Devops.remove({_id :req.params.id})
+  .then((devop) =>{
+     res.send(devop);
+  }).catch(
+     res.send('not deleted')
+  );
 });
 
 
