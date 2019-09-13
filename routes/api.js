@@ -25,8 +25,13 @@ router.post('/devops' , (req,res,next) => {
 
 ///update th developers info in the database
 router.put('/devops/:id' , (req,res,next) => {
-   res.send({type : "DELETE"});
-
+   Devops.updateOne({_id :req.params.id} , req.body)
+   .then(() => {
+      Devops.findOne({_id :req.params.id})
+      .then((newUpdatedDevop) => {
+         res.send(newUpdatedDevop); 
+      });     
+   })
 });
 
 
