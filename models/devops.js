@@ -1,6 +1,20 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+//  Creating GeoLocation Schema
+const geoSchema = new Schema(
+   {
+         "type": {
+            type:String,
+            default:"Point"
+         },
+         "coordinates":{
+            type:[Number],
+            createIndexes:"2dsphere"
+         }
+   }
+);
+
 // creating developers Schema
 const devopsShema = new Schema({
    name :{
@@ -9,14 +23,14 @@ const devopsShema = new Schema({
    },
    field:{
       type: String,
-      required:[true, 'Ran is required please !']
+      required:true,
    },
    available :{
       type :Boolean,
       default:false
-   }
-
-   ///add Geo Location
+   },
+   ///add Geoshema from up 
+   geometry:geoSchema
 
 
 

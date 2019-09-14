@@ -5,9 +5,37 @@ const Devops  = require('../models/devops');
 
 ///getiing a list of developers from the database
 router.get('/devops' , (req,res,next) => {
-   res.send({type : "GET"});
+   /*
+   Devops.find({})
+   .then((alldevops) => {
+      res.send(alldevops);
+   })
+   */
+  Devops.aggregate()
+  .near({
+    near: {
+      type: "Point",
+      coordinates: [parseFloat(req.query.lng), parseFloat(req.query.lat)]
+    },
+    $maxDistance: 300000, // 300 KM
+    spherical: true,
+    distanceField: "distance"
+  })
+  .then(alldevops => {
+    console.log(alldevops);
+    if (alldevops) {
+      if (alldevops.length === 0)
+        return res.send({
+          message:
+            "maxDistance is too small, or your query params {lng, lat} are incorrect (too big or too small)."
+        });
+      return res.send(alldevops);
+    }
+  })
+  .catch(next);
 
 });
+
 
 
 /// adding a developer into the database  

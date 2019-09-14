@@ -19,6 +19,9 @@ mongoose.connect('mongodb://localhost/devopsgo', {
 .then(() => console.log('MongoDB Connected...'))
 .catch(err => console.log(err));
 
+app.use(express.static('public'));
+app.use('css',express.static(__dirname + '/public'));
+
 ///body-parser middleware for handling post requests 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
