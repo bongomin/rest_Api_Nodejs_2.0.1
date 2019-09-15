@@ -10,9 +10,10 @@
     <title>Devops | API</title>
   </head>
   <body>
+    <!-- app header -->
 <header class="navbar navbar-expand flex-column flex-md-row bd-navbar text-white" style="background-color:#5600A1; color: white;">
-      <a class="navbar-brand mr-0 mr-md-2" href="/" aria-label="Devops"><i class="fa fa-code" style="font-size:50px ; color:white;"></i> </a>
-      <div class="navbar-nav-scroll" style="background-color: #5600A1; color:#fff !important">
+      <a class="navbar-brand mr-0 mr-md-2" href="/" aria-label="Devops"><i class="fa fa-code" style="font-size:40px ; color:white;"> | Find Devops |</i> </a>
+      <div class="navbar-nav-scroll " style="background-color: #5600A1; ">
         <ul class="navbar-nav bd-navbar-nav flex-row">
           <li class="nav-item">
             <a class="nav-link " href="/" >Home</a>
@@ -35,14 +36,72 @@
       <a class="btn btn-bd-download btn-outline-warning d-none d-lg-inline-block mb-3 mb-md-0 ml-md-3" href="/">Login</a>
       <a class="btn btn-bd-download btn-outline-warning d-none d-lg-inline-block mb-3 mb-md-0 ml-md-3" href="/">Register</a>
     </header>
-   
+   <!-- end heder -->
+   <!-- <h1 class="title">Devops | a Devop Rest Api</h1> -->
+   <hr>
+   <div id="homepage">
+     <h2>Hire a Software Devop in your Area ! </h2>
+     <hr>
+     <div id="devops"></div>
+   </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
     <script src="https://unpkg.com/react@15/dist/react.js"></script>
     <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <!-- Create React Component -->
+    <script type="text/babel">
+    var Devops = React.createClass({
+        getInitialState: function(){
+            return({
+                devops: []
+            });
+        },
+        render: function(){
+            var devops = this.state.devops;
+            devops = devops.map(function(devop, index){
+                return(
+                    <li key={index}>
+                        <span className={devop.obj.available}></span>
+                        <span className="name">{devop.obj.name}</span>
+                        <span className="rank">{devop.obj.rank}</span>
+                        <span className="dist">{Math.floor(devop.dis / 1000)} km</span>
+                    </li>
+                );
+            });
+            return(
+                <div id="devop-container">
+                    <form id="search" onSubmit={this.handleSubmit}>
+                        <label>Enter your Latitude:</label>
+                        <input type="text" ref="lat" placeholder="latitude" required />
+                        <label>Enter your Longitude:</label>
+                        <input type="text" ref="lng" placeholder="longitude" required />
+                        <input type="submit" value="Find Devops" />
+                    </form>
+                    <ul>{devops}</ul>
+                </div>
+            );
+        },
+        handleSubmit: function(e){
+            e.preventDefault();
+            var lng = this.refs.lng.value;
+            var lat = this.refs.lat.value;
+            fetch('/api/devops?lng=' + lng + '&lat=' + lat).then(function(data){
+                return data.json();
+            }).then( json => {
+                this.setState({
+                    devops: json
+                });
+                console.log(json);
+            });
+        }
+    });
+    ReactDOM.render(<Devops />, document.getElementById('devops'));
+    </script>
   </body>
 </html>
    
